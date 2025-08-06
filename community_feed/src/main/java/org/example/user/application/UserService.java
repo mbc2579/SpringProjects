@@ -6,7 +6,9 @@ import org.example.user.domain.User;
 import org.example.user.domain.UserInfo;
 
 import java.util.IllformedLocaleException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
 
     private final UserRepository userRepository;
