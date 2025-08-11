@@ -40,3 +40,8 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### 환경변수 & 설정 파일 ###
+.env
+application.properties
+application.yml
