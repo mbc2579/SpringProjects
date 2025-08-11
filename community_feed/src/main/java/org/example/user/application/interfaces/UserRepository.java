@@ -1,9 +1,7 @@
 package org.example.user.application.interfaces;
 
-import org.example.user.domain.User;
-
-import java.util.List;
 import java.util.Optional;
+import org.example.user.domain.User;
 
 public interface UserRepository {
 

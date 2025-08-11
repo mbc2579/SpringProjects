@@ -1,15 +1,21 @@
 package org.example.user.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import org.example.common.domain.PositiveIntegerCounter;
 
 import java.util.Objects;
 
+@Getter
+@Builder
+@AllArgsConstructor
 public class User {
 
-    private final Long id;
-    private final UserInfo info;
-    private final PositiveIntegerCounter followingCount;
-    private final PositiveIntegerCounter followerCounter;
+    private Long id;
+    private UserInfo info;
+    private PositiveIntegerCounter followingCount;
+    private PositiveIntegerCounter followerCount;
 
     public User(Long id, UserInfo userInfo) {
         if (userInfo == null) {
@@ -19,7 +25,7 @@ public class User {
         this.id = id;
         this.info = userInfo;
         this.followingCount = new PositiveIntegerCounter();
-        this.followerCounter = new PositiveIntegerCounter();
+        this.followerCount = new PositiveIntegerCounter();
     }
 
     public void follow(User targetUser) {
@@ -41,16 +47,16 @@ public class User {
     }
 
     private void increaseFollowerCount() {
-        followerCounter.increase();
+        followerCount.increase();
     }
 
     private void decreaseFollowerCount() {
-        followerCounter.decrease();
+        followerCount.decrease();
     }
 
     @Override
     public boolean equals(Object o) {
-        if(this == o) {
+        if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
@@ -65,19 +71,19 @@ public class User {
         return Objects.hashCode(id);
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public int followerCount() {
-        return followerCounter.getCount();
+        return followerCount.getCount();
     }
 
     public int followingCount() {
         return followingCount.getCount();
     }
 
-    public UserInfo getInfo() {
-        return info;
+    public String getProfileImage() {
+        return info.getProfileImageUrl();
+    }
+
+    public String getName() {
+        return info.getName();
     }
 }
