@@ -2,14 +2,10 @@ package org.example.post.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.example.fake.FakeObjectFactory;
-import org.example.post.application.dto.CreatePostRequestDto;
 import org.example.post.application.dto.LikeRequestDto;
+import org.example.post.application.dto.UpdatePostRequestDto;
 import org.example.post.domain.Post;
 import org.example.post.domain.content.PostPublicationState;
-import org.example.user.application.UserService;
-import org.example.user.application.dto.CreateUserRequestDto;
-import org.example.user.domain.User;
 import org.junit.jupiter.api.Test;
 
 class PostServiceTest extends PostApplicationTestTemplate{
@@ -30,7 +26,8 @@ class PostServiceTest extends PostApplicationTestTemplate{
         Post savedPost = postService.createPost(postRequestDto);
 
         // when
-        Post updatedPost = postService.updatePost(savedPost.getId(), postRequestDto);
+        UpdatePostRequestDto updatePostRequestDto = new UpdatePostRequestDto(user.getId(), "this is test content", PostPublicationState.PUBLIC);
+        Post updatedPost = postService.updatePost(savedPost.getId(), updatePostRequestDto);
 
         // then
         assertEquals(savedPost.getId(), updatedPost.getId());
