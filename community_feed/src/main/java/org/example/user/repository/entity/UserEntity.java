@@ -12,12 +12,14 @@ import org.example.common.domain.PositiveIntegerCounter;
 import org.example.common.repository.entity.TimeBaseEntity;
 import org.example.user.domain.User;
 import org.example.user.domain.UserInfo;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name="community_user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@DynamicUpdate // 변경된 값들만 업데이트 해줌
 public class UserEntity extends TimeBaseEntity {
 
     @Id
