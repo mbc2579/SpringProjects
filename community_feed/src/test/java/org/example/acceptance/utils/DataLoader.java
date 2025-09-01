@@ -1,11 +1,14 @@
 package org.example.acceptance.utils;
 
-import static org.example.acceptance.steps.UserAcceptanceSteps.createUser;
+import static org.example.acceptance.steps.SignUpAcceptanceSteps.registerUser;
+import static org.example.acceptance.steps.SignUpAcceptanceSteps.requestSendEmail;
+import static org.example.acceptance.steps.SignUpAcceptanceSteps.requestVerifyEmail;
 import static org.example.acceptance.steps.UserAcceptanceSteps.followUser;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.example.user.application.dto.CreateUserRequestDto;
+import org.example.auth.application.dto.CreateUserAuthRequestDto;
+import org.example.auth.application.dto.SendEmailRequestDto;
 import org.example.user.application.dto.FollowUserRequestDto;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +19,10 @@ public class DataLoader {
     private EntityManager entityManager;
 
     public void loadData() {
-        CreateUserRequestDto dto = new CreateUserRequestDto("test user", "");
-        createUser(dto);
-        createUser(dto);
-        createUser(dto);
+        // user 1, 2, 3 생성
+        for (int i = 1; i < 4; i++) {
+            createUser("user" + i + "@test.com");
+        }
 
         followUser(new FollowUserRequestDto(1L, 2L));
         followUser(new FollowUserRequestDto(1L, 3L));
@@ -42,5 +45,12 @@ public class DataLoader {
         return entityManager.createQuery("SELECT userId From UserAuthEntity WHERE email = :email", Long.class)
             .setParameter("email", email)
             .getSingleResult();
+    }
+
+    public void createUser(String email) {
+        requestSendEmail(new SendEmailRequestDto(email));
+        String token = getEmailToken(email);
+        requestVerifyEmail(email, token);
+        registerUser(new CreateUserAuthRequestDto(email, "password", "USER", "name", ""));
     }
 }
