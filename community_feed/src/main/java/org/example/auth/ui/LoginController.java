@@ -1,6 +1,7 @@
 package org.example.auth.ui;
 
 import lombok.RequiredArgsConstructor;
+import org.example.auth.application.AuthService;
 import org.example.auth.application.dto.LoginRequestDto;
 import org.example.auth.application.dto.UserAccessTokenResponseDto;
 import org.example.common.ui.Response;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LoginController {
 
+    private final AuthService authService;
+
     @PostMapping
     public Response<UserAccessTokenResponseDto> login(@RequestBody LoginRequestDto dto) {
-        return null;
+        return Response.ok(authService.login(dto));
     }
 }
