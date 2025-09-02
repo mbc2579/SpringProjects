@@ -1,16 +1,15 @@
-package org.example.admin.ui.dto;
+package org.example.admin.ui.dto.users;
 
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.common.domain.Pageable;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetDailyRegisterUserResponseDto {
-    private LocalDate date;
-    private Long count;
+public class GetUserTableRequestDto extends Pageable {
+    private String name;
 }

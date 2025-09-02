@@ -1026,7 +1026,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="298" parent="1" name="community_feed">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2025-09-02.10:46:45</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-09-02.12:39:15</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="299" parent="1" name="mysql.infoschema">
@@ -1278,81 +1278,93 @@ user_id</ColNames>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="354" parent="308" name="password">
-      <DasType>varchar(255)|0s</DasType>
+    <column id="354" parent="308" name="reg_dt">
+      <DasType>datetime(6)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="355" parent="308" name="role">
-      <DasType>varchar(255)|0s</DasType>
+    <column id="355" parent="308" name="upd_dt">
+      <DasType>datetime(6)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="356" parent="308" name="user_id">
-      <DasType>bigint|0s</DasType>
+    <column id="356" parent="308" name="last_login_dt">
+      <DasType>datetime(6)|0s</DasType>
       <Position>4</Position>
     </column>
-    <index id="357" parent="308" name="PRIMARY">
+    <column id="357" parent="308" name="password">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="358" parent="308" name="role">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <column id="359" parent="308" name="user_id">
+      <DasType>bigint|0s</DasType>
+      <Position>7</Position>
+    </column>
+    <index id="360" parent="308" name="PRIMARY">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="358" parent="308" name="PRIMARY">
+    <key id="361" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="359" parent="309" name="id">
+    <column id="362" parent="309" name="id">
       <AutoIncrement>6</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="360" parent="309" name="author_id">
+    <column id="363" parent="309" name="author_id">
       <DasType>bigint|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="361" parent="309" name="post_id">
+    <column id="364" parent="309" name="post_id">
       <DasType>bigint|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="362" parent="309" name="user_id">
+    <column id="365" parent="309" name="user_id">
       <DasType>bigint|0s</DasType>
       <Position>4</Position>
     </column>
-    <index id="363" parent="309" name="PRIMARY">
+    <index id="366" parent="309" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="364" parent="309" name="PRIMARY">
+    <key id="367" parent="309" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="365" parent="310" name="follower_user_id">
+    <column id="368" parent="310" name="follower_user_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="366" parent="310" name="following_user_id">
+    <column id="369" parent="310" name="following_user_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="367" parent="310" name="reg_dt">
+    <column id="370" parent="310" name="reg_dt">
       <DasType>datetime(6)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="368" parent="310" name="upd_dt">
+    <column id="371" parent="310" name="upd_dt">
       <DasType>datetime(6)|0s</DasType>
       <Position>4</Position>
     </column>
-    <index id="369" parent="310" name="PRIMARY">
+    <index id="372" parent="310" name="PRIMARY">
       <ColNames>follower_user_id
 following_user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="370" parent="310" name="PRIMARY">
+    <key id="373" parent="310" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
