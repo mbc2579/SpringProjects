@@ -1,0 +1,27 @@
+package com.sparta.chatservice.entitiies;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.time.LocalDateTime;
+import java.util.Set;
+
+@Entity
+public class Chatroom {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "chatroom_id")
+    @Id
+    Long id;
+
+    String title;
+
+    @OneToMany(mappedBy = "chatroom")
+    Set<MemberChatroomMapping> memberChatroomMappingSet;
+
+    LocalDateTime createdAt;
+
+}
