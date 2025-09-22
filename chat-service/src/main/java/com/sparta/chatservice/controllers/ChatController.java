@@ -1,5 +1,6 @@
 package com.sparta.chatservice.controllers;
 
+import com.sparta.chatservice.dtos.ChatroomDto;
 import com.sparta.chatservice.entitiies.Chatroom;
 import com.sparta.chatservice.services.ChatService;
 import com.sparta.chatservice.vos.CustomOAuth2User;
@@ -24,8 +25,10 @@ public class ChatController {
     private final ChatService chatService;
 
     @PostMapping
-    public Chatroom createChatroom(@AuthenticationPrincipal CustomOAuth2User user, @RequestParam String title) {
-        return chatService.createChatroom(user.getMember(), title);
+    public ChatroomDto createChatroom(@AuthenticationPrincipal CustomOAuth2User user, @RequestParam String title) {
+        Chatroom chatroom = chatService.createChatroom(user.getMember(), title);
+
+        return ChatroomDto.from(chatroom);
     }
 
     @PostMapping("/{chatroomId}")
@@ -39,7 +42,11 @@ public class ChatController {
     }
 
     @GetMapping
-    public List<Chatroom> getChatroomList(@AuthenticationPrincipal CustomOAuth2User user) {
-        return chatService.getChatroomList(user.getMember());
+    public List<ChatroomDto> getChatroomList(@AuthenticationPrincipal CustomOAuth2User user) {
+        List<Chatroom> chatroomList = chatService.getChatroomList(user.getMember());
+
+        return chatroomList.stream()
+            .map(ChatroomDto::from)
+            .toList();
     }
 }

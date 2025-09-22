@@ -4,6 +4,7 @@ const stompClient = new StompJs.Client({
 
 stompClient.onConnect = (frame) => {
   setConnected(true);
+  showChatrooms();
   console.log('Connected: ' + frame);
 };
 
@@ -19,7 +20,7 @@ stompClient.onStompError = (frame) => {
 function setConnected(connected) {
   $("#connect").prop("disabled", connected);
   $("#disconnect").prop("disabled", !connected);
-  $("#create").prop("disabled", connected);
+  $("#create").prop("disabled", !connected);
 }
 
 function connect() {
@@ -97,6 +98,7 @@ let subscription;
 
 function enterChatroom(chatroomId, newMember) {
   $("#chatroom-id").val(chatroomId);
+  $("#messages").html("");
   $("#conversation").show();
   $("#send").prop("disabled", false);
   $("#leave").prop("disabled", false);
@@ -106,10 +108,10 @@ function enterChatroom(chatroomId, newMember) {
     subscription.unsubscribe();
   }
 
-  subscription = stompClient.subscribe('/sub/chats/', + chatroomId,
+  subscription = stompClient.subscribe('/sub/chats/' + chatroomId,
       (chatMessage) => {
         showMessage(JSON.parse(chatMessage.body));
-  });
+      });
 
   if(newMember) {
     stompClient.publish({
@@ -137,7 +139,7 @@ function joinChatroom(chatroomId) {
 }
 
 function leaveChatroom() {
-  let chatroomId = $("chatroom-id").val();
+  let chatroomId = $("#chatroom-id").val();
   $.ajax({
     type: 'DELETE',
     dataType: 'json',
