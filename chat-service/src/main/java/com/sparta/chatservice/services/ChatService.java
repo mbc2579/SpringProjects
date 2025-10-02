@@ -3,8 +3,10 @@ package com.sparta.chatservice.services;
 import com.sparta.chatservice.entitiies.Chatroom;
 import com.sparta.chatservice.entitiies.Member;
 import com.sparta.chatservice.entitiies.MemberChatroomMapping;
+import com.sparta.chatservice.entitiies.Message;
 import com.sparta.chatservice.repositories.ChatroomRepository;
 import com.sparta.chatservice.repositories.MemberChatroomMappingRepository;
+import com.sparta.chatservice.repositories.MessageRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ public class ChatService {
 
     private final ChatroomRepository chatroomRepository;
     private final MemberChatroomMappingRepository memberChatroomMappingRepository;
+    private final MessageRepository messageRepository;
 
     // 채팅방 만들기
     public Chatroom createChatroom(Member member, String title) {
@@ -75,5 +78,23 @@ public class ChatService {
         return memberChatroomMappingList.stream()
             .map(MemberChatroomMapping::getChatroom)
             .toList();
+    }
+
+    // 메세지 저장
+    public Message saveMessage(Member member, Long chatroomId, String text) {
+        Chatroom chatroom = chatroomRepository.findById(chatroomId).get();
+
+        Message message = Message.builder()
+            .text(text)
+            .member(member)
+            .chatroom(chatroom)
+            .build();
+
+        return messageRepository.save(message);
+    }
+
+    // 특정 채팅방에서 작성된 메세지 가져오기
+    public List<Message> getMessageList(Long chatroomId) {
+        return messageRepository.findAllByChatroomId(chatroomId);
     }
 }

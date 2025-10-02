@@ -1,7 +1,9 @@
 package com.sparta.chatservice.controllers;
 
+import com.sparta.chatservice.dtos.ChatMessage;
 import com.sparta.chatservice.dtos.ChatroomDto;
 import com.sparta.chatservice.entitiies.Chatroom;
+import com.sparta.chatservice.entitiies.Message;
 import com.sparta.chatservice.services.ChatService;
 import com.sparta.chatservice.vos.CustomOAuth2User;
 import java.util.List;
@@ -47,6 +49,14 @@ public class ChatController {
 
         return chatroomList.stream()
             .map(ChatroomDto::from)
+            .toList();
+    }
+
+    @GetMapping("/{chatroomId}/messages")
+    public List<ChatMessage> getMessageList(@PathVariable Long chatroomId) {
+        List<Message> messageList = chatService.getMessageList(chatroomId);
+        return messageList.stream()
+            .map(message -> new ChatMessage(message.getMember().getNickName(), message.getText()))
             .toList();
     }
 }
